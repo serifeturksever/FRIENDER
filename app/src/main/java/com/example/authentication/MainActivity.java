@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView welcome;
+    String userName = "";
+    String splitEmail[];
     Button btnLogOut;
     FirebaseAuth mAuth;
 
@@ -20,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Log.d("error","hata var!");
-
         btnLogOut = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();
+        welcome = (TextView) findViewById(R.id.textView);
 
         btnLogOut.setOnClickListener(view->{
             mAuth.signOut();
@@ -33,9 +36,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        Log.d("error","hata var2!");
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user==null){
+        if(user != null) {
+            splitEmail = user.getEmail().split("@",0); // welcome mesajını maile göre dinamik yazdırma kısmı
+            userName = splitEmail[0];
+            welcome.setText("Welcome " + userName + " :)");
+        }
+        else{
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
         }
     }

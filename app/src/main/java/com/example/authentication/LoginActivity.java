@@ -3,6 +3,7 @@ package com.example.authentication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
             loginUser();
         });
         tvRegisterHere.setOnClickListener(view ->{
-            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            Intent myIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+            myIntent.putExtra("mesaj","extra mesaj");
+            startActivity(myIntent);
         });
     }
 
@@ -61,8 +64,10 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
+                        Log.d("mesaj","mesaj2");
                         Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(myIntent);
                     }else{
                         Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }

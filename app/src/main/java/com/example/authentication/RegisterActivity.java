@@ -3,6 +3,7 @@ package com.example.authentication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        String a = "";
         etRegEmail = findViewById(R.id.etRegEmail);
         etRegPassword = findViewById(R.id.etRegPass);
         tvLoginHere = findViewById(R.id.tvLoginHere);
@@ -42,7 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         tvLoginHere.setOnClickListener(view ->{
-            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+            Intent myIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(myIntent);
         });
     }
 
@@ -62,7 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         Toast.makeText(RegisterActivity.this, "User registered successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        Intent myIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(myIntent);
                     }else{
                         Toast.makeText(RegisterActivity.this, "Registration Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
