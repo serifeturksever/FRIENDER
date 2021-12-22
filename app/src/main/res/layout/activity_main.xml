@@ -59,11 +59,13 @@
             android:layout_weight="1">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/sport"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#2D2D2D"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                android:onClick="cardActivity">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -72,8 +74,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/sport"></ImageView>
 
                     <TextView
@@ -81,10 +83,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Sport"
-                        android:textSize="12sp"
                         android:textColor="@color/white"
-                        />
-
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -92,11 +92,13 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/game"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#2D2D2D"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                android:onClick="cardActivity">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -105,8 +107,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/game"></ImageView>
 
                     <TextView
@@ -114,10 +116,10 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Game"
-                        android:textSize="12sp"
                         android:textColor="@color/white"
-                        />
+                        android:textSize="12sp"
 
+                    />
 
 
                 </LinearLayout>
@@ -133,11 +135,14 @@
             android:layout_weight="1">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/chat"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#2D2D2D"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                android:onClick="cardActivity">
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -146,8 +151,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/chat"></ImageView>
 
                     <TextView
@@ -155,10 +160,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Chat"
-                        android:textSize="12sp"
                         android:textColor="@color/white"
-                        />
-
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -166,11 +169,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/study"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#2D2D2D"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                android:onClick="cardActivity">
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -179,8 +185,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/study"></ImageView>
 
                     <TextView
@@ -188,10 +194,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Study"
-                        android:textSize="12sp"
                         android:textColor="@color/white"
-                        />
-
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -206,11 +210,14 @@
             android:layout_weight="1">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/food"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#2D2D2D"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                android:onClick="cardActivity">
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -219,8 +226,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/pizza"></ImageView>
 
                     <TextView
@@ -228,10 +235,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Food"
-                        android:textSize="12sp"
                         android:textColor="@color/white"
-                        />
-
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -239,11 +244,14 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/art"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="#2D2D2D"
-                app:cardCornerRadius="15dp">
+                app:cardCornerRadius="15dp"
+                android:onClick="cardActivity"
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -252,8 +260,8 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/art"></ImageView>
 
                     <TextView
@@ -261,10 +269,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Art"
-                        android:textSize="12sp"
                         android:textColor="@color/white"
-                        />
-
+                        android:textSize="12sp" />
 
 
                 </LinearLayout>
@@ -279,8 +285,8 @@
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="0dp"
+        android:layout_marginTop="16dp"
         android:text="Logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

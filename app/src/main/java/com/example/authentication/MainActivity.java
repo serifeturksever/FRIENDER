@@ -1,15 +1,20 @@
 package com.example.authentication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     String splitEmail[];
     Button btnLogOut;
     FirebaseAuth mAuth;
+    String header;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,49 @@ public class MainActivity extends AppCompatActivity {
         }
         else{
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
+        }
+    }
+
+
+    public void cardActivity(@NonNull View v){
+
+           /* TextView name = (TextView) findViewById(v.getId()) ;
+            Log.d("v:",name.toString());
+            Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
+            myIntent.putExtra("name",name.getText().toString());
+            startActivity(myIntent);
+       */
+
+        if(v.getId() == R.id.sport){
+            Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
+            myIntent.putExtra("name","sport");
+            startActivity(myIntent);
+        }
+        else if(v.getId() == R.id.study){
+            Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
+            myIntent.putExtra("name","study");
+            startActivity(myIntent);
+        }
+
+        else if(v.getId() == R.id.art){
+            Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
+            myIntent.putExtra("name","art");
+            startActivity(myIntent);
+        }
+        else if(v.getId() == R.id.food){
+            Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
+            myIntent.putExtra("name","food");
+            startActivity(myIntent);
+        }
+        else if(v.getId() == R.id.game){
+            Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
+            myIntent.putExtra("name","game");
+            startActivity(myIntent);
+        }
+        else if(v.getId() == R.id.chat){
+            Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
+            myIntent.putExtra("name","chat");
+            startActivity(myIntent);
         }
     }
 }
