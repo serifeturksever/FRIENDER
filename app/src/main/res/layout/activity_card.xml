@@ -22,7 +22,6 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="1dp"
         android:ems="10"
-        android:hint="type something"
         android:inputType="textPersonName"
         android:text="Type something..."
         app:layout_constraintEnd_toStartOf="@+id/sendButton"
@@ -30,13 +29,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
+        android:id="@+id/maincontainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chatText">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="4dp"

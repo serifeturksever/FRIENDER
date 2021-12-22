@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,16 +33,18 @@ public class CardDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
 
-        cardText = findViewById(R.id.cardText);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportFragmentManager().beginTransaction().replace(R.id.maincontainer,new DataFragment()).commit();
 
-      //  mAuth = FirebaseAuth.getInstance();
 
-        Bundle bundle = getIntent().getExtras();
+        //  mAuth = FirebaseAuth.getInstance();
+
+/*        Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
             String name = bundle.getString("name");
             cardText.setText(name);
 
-        }
+        }*/
     }
 
 
