@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     String header;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

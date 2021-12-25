@@ -4,10 +4,14 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,12 +59,23 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        TextView titleTV = view.findViewById(R.id.titleTV);
-        titleTV.setText("Burhan");
+        // TextView titleTV = view.findViewById(R.id.titleTV);
+        //TextView chatText = view.findViewById(R.id.chatText);
+        //Button sendButton = view.findViewById(R.id.sendButton);
+
+        //chatText.setVisibility(View.INVISIBLE);
+        //sendButton.setVisibility(View.INVISIBLE);
+
+        // titleTV.setText("Burhan");
+        //String appName = (TextView) getString(R.string.app_name);
+        //appName.setText(String.valueOf("counter"));
+        //Log.d("message",appName);
 
         return view;
+
+
 
     }
 }

@@ -8,9 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 /**
@@ -67,21 +72,34 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                              Bundle savedInstanceState) {
 
 
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_card, container, false);
         recyclerView = view.findViewById(R.id.recview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dataHolder = new ArrayList<>();
 
-        DataModel obj1=new DataModel(R.drawable.java,"Java Programming","Desktop and Web Programming");
+        /*DataModel obj1=new DataModel(R.drawable.java,"Java Programming","Desktop and Web Programming");
         dataHolder.add(obj1);
 
         DataModel obj2=new DataModel(R.drawable.nodejs,"NodeJS","Web Application Framework");
-        dataHolder.add(obj2);
+        dataHolder.add(obj2);*/
 
 
         MyAdapter adapter = new MyAdapter(dataHolder, (MyAdapter.ItemClickListener) this);
         recyclerView.setAdapter(adapter);
+
+        Button sendButton = view.findViewById(R.id.createRoom);
+        EditText roomName = (EditText) view.findViewById(R.id.roomName);
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DataModel obj3=new DataModel(R.drawable.java,roomName.getText().toString(),"description comes here...");
+                dataHolder.add(obj3);
+                recyclerView.setAdapter(adapter);
+            }
+        });
 
         return view;
     }
