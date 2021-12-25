@@ -13,9 +13,12 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     ArrayList<DataModel> dataHolder;
+    private ItemClickListener clickListener;
 
-    public MyAdapter(ArrayList<DataModel> dataHolder) {
+    public MyAdapter(ArrayList<DataModel> dataHolder,ItemClickListener clickListener) {
         this.dataHolder = dataHolder;
+        this.clickListener = clickListener;
+
     }
 
     @NonNull
@@ -30,6 +33,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
         holder.img.setImageResource(dataHolder.get(position).getImage());
         holder.header.setText(dataHolder.get(position).getHeader());
         holder.description.setText(dataHolder.get(position).getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() { // itemView ?
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(dataHolder.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -46,6 +56,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
             header = itemView.findViewById(R.id.t1);
             description = itemView.findViewById(R.id.t2);
         }
+    }
+
+    public interface ItemClickListener {
+
+        public void onItemClick(DataModel dataModel);
     }
 
 }

@@ -3,9 +3,11 @@ package com.example.authentication;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  * Use the {@link DataFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DataFragment extends Fragment {
+public class DataFragment extends Fragment implements MyAdapter.ItemClickListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,7 +79,9 @@ public class DataFragment extends Fragment {
         DataModel obj2=new DataModel(R.drawable.nodejs,"NodeJS","Web Application Framework");
         dataHolder.add(obj2);
 
-        recyclerView.setAdapter(new MyAdapter(dataHolder));
+
+        MyAdapter adapter = new MyAdapter(dataHolder, (MyAdapter.ItemClickListener) this);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -85,5 +89,14 @@ public class DataFragment extends Fragment {
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState){
         super.onViewCreated(view,savedInstanceState);
+    }
+
+    @Override
+    public void onItemClick(DataModel dataModel){
+        Fragment fragment = DetailFragment.newInstance(dataModel.getHeader()); // DetailFragment.newInstance(dataModel.getHeader());
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.maincontainer,fragment,"detail_fragment");
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
