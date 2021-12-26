@@ -91,7 +91,11 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataHolder.clear();
                 for (DataSnapshot roomDataSnap : dataSnapshot.getChildren()){
-                    Log.d("room_name",roomDataSnap.getChildren().toString());
+                    for(DataSnapshot rmchild: roomDataSnap.getChildren()){
+                        Log.d("room_name",rmchild.getValue().toString());
+                    }
+
+
 
                 }
             }
