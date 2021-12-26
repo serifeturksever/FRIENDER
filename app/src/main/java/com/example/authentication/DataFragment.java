@@ -82,6 +82,26 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        DatabaseReference reference;
+        reference = FirebaseDatabase.getInstance().getReference().getRoot();
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                dataHolder.clear();
+                for (DataSnapshot roomDataSnap : dataSnapshot.getChildren()){
+                    Log.d("room_name",roomDataSnap.getChildren().toString());
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("message","firebase error");
+            }
+        });
+
     }
 
     @Override
@@ -110,6 +130,8 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         EditText roomName = (EditText) view.findViewById(R.id.roomName);
         DatabaseReference reference;
         reference = FirebaseDatabase.getInstance().getReference().child("rooms");
+
+
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
