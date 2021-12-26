@@ -31,9 +31,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        holder.img.setImageResource(dataHolder.get(position).getImage());
+        //holder.img.setImageResource(dataHolder.get(position).getImage());
         holder.header.setText(dataHolder.get(position).getHeader());
-        holder.description.setText(dataHolder.get(position).getDescription());
+        //holder.description.setText(dataHolder.get(position).getDescription());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() { // itemView ?
             @Override
@@ -50,13 +50,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     }
 
     class myViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
-        TextView header,description;
+        //ImageView img;
+        TextView header; //,description;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            img = itemView.findViewById(R.id.img1);
+            //img = itemView.findViewById(R.id.img1);
             header = itemView.findViewById(R.id.t1);
-            description = itemView.findViewById(R.id.t2);
+            //description = itemView.findViewById(R.id.t2);
         }
     }
 

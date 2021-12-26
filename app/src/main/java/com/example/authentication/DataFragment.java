@@ -2,21 +2,34 @@ package com.example.authentication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +37,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class DataFragment extends Fragment implements MyAdapter.ItemClickListener{
+
+    //FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //DatabaseReference myRef = database.getReference("message");
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,6 +51,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     private String mParam2;
     RecyclerView recyclerView;
     ArrayList<DataModel> dataHolder;
+    ArrayAdapter<String> arrayAdapter;
 
     public DataFragment() {
         // Required empty public constructor
@@ -91,13 +108,16 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
         Button sendButton = view.findViewById(R.id.createRoom);
         EditText roomName = (EditText) view.findViewById(R.id.roomName);
+        DatabaseReference reference;
+        reference = FirebaseDatabase.getInstance().getReference().child("rooms");
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataModel obj3=new DataModel(R.drawable.java,roomName.getText().toString(),"description comes here...");
+                DataModel obj3=new DataModel(roomName.getText().toString());
                 dataHolder.add(obj3);
                 recyclerView.setAdapter(adapter);
+                reference.push().setValue(roomName.getText().toString());
             }
         });
 

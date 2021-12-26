@@ -1,22 +1,22 @@
 package com.example.authentication;
 
 public class DataModel {
-    int image;
-    String header,description;
+    //int image;
+    String header; //,description;
 
-    public DataModel(int image, String header, String description) {
-        this.image = image;
+    public DataModel(String header) {
+        //this.image = image;
         this.header = header;
-        this.description = description;
+       //this.description = description;
     }
 
-    public int getImage() {
+    /*public int getImage() {
         return image;
-    }
+    }*/
 
-    public void setImage(int image) {
+    /*public void setImage(int image) {
         this.image = image;
-    }
+    }*/
 
     public String getHeader() {
         return header;
@@ -25,12 +25,12 @@ public class DataModel {
     public void setHeader(String header) {
         this.header = header;
     }
-
+    /*
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
+    }*/
 }
