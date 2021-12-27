@@ -32,18 +32,25 @@ public class CardDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
-        
+        /*String name;
+        Bundle bundle1 = getIntent().getExtras();
+        if(bundle1 != null) {
+            name = bundle1.getString("name");
+            cardText.setText(name);
+        }*/
+
+        Bundle bundle = new Bundle();
+        bundle.putString("odaIsmi",getIntent().getExtras().getString("name"));
+        DataFragment dataFragment = new DataFragment();
+        dataFragment.setArguments(bundle);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportFragmentManager().beginTransaction().replace(R.id.maincontainer,new DataFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.maincontainer,dataFragment).commit();
+
 
         //  mAuth = FirebaseAuth.getInstance();
 
-/*        Bundle bundle = getIntent().getExtras();
-        if(bundle != null) {
-            String name = bundle.getString("name");
-            cardText.setText(name);
 
-        }*/
     }
 
 

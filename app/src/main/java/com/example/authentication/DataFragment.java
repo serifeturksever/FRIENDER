@@ -48,6 +48,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -82,17 +83,18 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         Log.d("message","test 1");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString("odaIsmi");
+            //mParam2 = getArguments().getString(ARG_PARAM2);
+            Log.d("message",mParam1);
+            //Log.d("message",mParam2);
+
         }
-
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         Log.d("message","test 2");
 
         DatabaseReference reference;
@@ -103,9 +105,11 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                 dataHolder.clear();
                 for (DataSnapshot roomDataSnap : dataSnapshot.getChildren()){
                     for(DataSnapshot rmchild: roomDataSnap.getChildren()){
-                        Log.d("room_name",rmchild.getValue().toString());
-                        DataModel data_model = new DataModel(rmchild.getValue().toString());
-                        dataHolder.add(data_model);
+                        for(DataSnapshot subrmchild: rmchild.getChildren()){
+                            Log.d("room_name",subrmchild.getValue().toString());
+                            DataModel data_model = new DataModel(subrmchild.getValue().toString());
+                            dataHolder.add(data_model);
+                        }
                     }
                 }
                 MyAdapter myAdapter = new MyAdapter(dataHolder,DataFragment.this::onItemClick);
@@ -138,7 +142,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         Button sendButton = view.findViewById(R.id.createRoom);
         EditText roomName = (EditText) view.findViewById(R.id.roomName);
         DatabaseReference reference1;
-        reference1 = FirebaseDatabase.getInstance().getReference().child("rooms");
+        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
