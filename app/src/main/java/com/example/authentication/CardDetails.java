@@ -32,10 +32,9 @@ public class CardDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
-
+        
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportFragmentManager().beginTransaction().replace(R.id.maincontainer,new DataFragment()).commit();
-
 
         //  mAuth = FirebaseAuth.getInstance();
 
