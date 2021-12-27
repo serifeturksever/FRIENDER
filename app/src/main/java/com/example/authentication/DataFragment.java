@@ -98,20 +98,22 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         Log.d("message","test 2");
 
         DatabaseReference reference;
+        //reference = FirebaseDatabase.getInstance().getReference().getRoot();
         reference = FirebaseDatabase.getInstance().getReference().getRoot();
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataHolder.clear();
-                for (DataSnapshot roomDataSnap : dataSnapshot.getChildren()){
-                    for(DataSnapshot rmchild: roomDataSnap.getChildren()){
-                        for(DataSnapshot subrmchild: rmchild.getChildren()){
-                            Log.d("room_name",subrmchild.getValue().toString());
-                            DataModel data_model = new DataModel(subrmchild.getValue().toString());
-                            dataHolder.add(data_model);
+                //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getChildren()));
+                //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getValue()));
+                        for(DataSnapshot rmchild: dataSnapshot.child(mParam1).getChildren()) {
+                            for (DataSnapshot subrmchild : rmchild.getChildren()) {
+                                Log.d("room_name", subrmchild.getValue().toString());
+                                DataModel data_model = new DataModel(subrmchild.getValue().toString());
+                                dataHolder.add(data_model);
+                            }
                         }
-                    }
-                }
+                //dataHolder.clear();
                 MyAdapter myAdapter = new MyAdapter(dataHolder,DataFragment.this::onItemClick);
                 recyclerView.setAdapter(myAdapter);
                 myAdapter.notifyDataSetChanged();
