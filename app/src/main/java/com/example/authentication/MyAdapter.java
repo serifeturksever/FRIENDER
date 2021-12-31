@@ -3,8 +3,6 @@ package com.example.authentication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -54,9 +52,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
         TextView header; //,description;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            //img = itemView.findViewById(R.id.img1);
-            header = itemView.findViewById(R.id.t1);
-            //description = itemView.findViewById(R.id.t2);
+            header = itemView.findViewById(R.id.emailText);
         }
     }
 

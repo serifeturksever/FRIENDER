@@ -84,9 +84,9 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString("odaIsmi");
-            //mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam2 = getArguments().getString("email");
             Log.d("message",mParam1);
-            //Log.d("message",mParam2);
+            Log.d("message",mParam2);
 
         }
     }
@@ -131,13 +131,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dataHolder = new ArrayList<>();
 
-        /*DataModel obj1=new DataModel(R.drawable.java,"Java Programming","Desktop and Web Programming");
-        dataHolder.add(obj1);
-
-        DataModel obj2=new DataModel(R.drawable.nodejs,"NodeJS","Web Application Framework");
-        dataHolder.add(obj2);*/
-
-
         MyAdapter adapter = new MyAdapter(dataHolder, (MyAdapter.ItemClickListener) this);
         recyclerView.setAdapter(adapter);
 
@@ -167,7 +160,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
     @Override
     public void onItemClick(DataModel dataModel){
-        Fragment fragment = DetailFragment.newInstance(dataModel.getHeader()); // DetailFragment.newInstance(dataModel.getHeader());
+        Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.maincontainer,fragment,"detail_fragment");
         transaction.addToBackStack(null);

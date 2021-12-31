@@ -39,8 +39,11 @@ public class CardDetails extends AppCompatActivity {
             cardText.setText(name);
         }*/
 
+        Log.d("email",getIntent().getExtras().getString("email"));
+
         Bundle bundle = new Bundle();
         bundle.putString("odaIsmi",getIntent().getExtras().getString("name"));
+        bundle.putString("email",getIntent().getExtras().getString("email"));
         DataFragment dataFragment = new DataFragment();
         dataFragment.setArguments(bundle);
 
@@ -49,6 +52,7 @@ public class CardDetails extends AppCompatActivity {
 
 
         //  mAuth = FirebaseAuth.getInstance();
+
 
 
     }
