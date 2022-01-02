@@ -55,6 +55,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     RecyclerView recyclerView;
     ArrayList<DataModel> dataHolder;
     ArrayAdapter<String> arrayAdapter;
+    String roomNameForArgumentPass;
 
     public DataFragment() {
         // Required empty public constructor
@@ -85,9 +86,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         if (getArguments() != null) {
             mParam1 = getArguments().getString("odaIsmi");
             mParam2 = getArguments().getString("email");
-            Log.d("message",mParam1);
-            Log.d("message",mParam2);
-
         }
     }
 
@@ -95,7 +93,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d("message","test 2");
 
         DatabaseReference reference;
         //reference = FirebaseDatabase.getInstance().getReference().getRoot();
@@ -108,7 +105,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                 //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getValue()));
                         for(DataSnapshot rmchild: dataSnapshot.child(mParam1).getChildren()) {
                             for (DataSnapshot subrmchild : rmchild.getChildren()) {
-                                Log.d("room_name", subrmchild.getValue().toString());
                                 DataModel data_model = new DataModel(subrmchild.getValue().toString());
                                 dataHolder.add(data_model);
                             }
@@ -136,8 +132,14 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
         Button sendButton = view.findViewById(R.id.createRoom);
         EditText roomName = (EditText) view.findViewById(R.id.roomName);
+
+
+
+
         DatabaseReference reference1;
         reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
+
+
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +147,12 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                 DataModel obj3=new DataModel(roomName.getText().toString());
                 dataHolder.add(obj3);
                 recyclerView.setAdapter(adapter);
-                reference1.push().setValue(roomName.getText().toString());
+                reference1.push().setValue(roomName.getText().toString()); //push().setValue(roomName.getText().toString());
+                roomNameForArgumentPass = roomName.getText().toString();
+                Log.d("message23",roomNameForArgumentPass);
+
+
+
                 roomName.setText("");
             }
         });
@@ -161,6 +168,15 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     @Override
     public void onItemClick(DataModel dataModel){
         Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("odaIsmi",mParam1);
+        bundle.putString("email",mParam2);
+        bundle.putString("chatRoomName","Burhannnnnnnnnnn");
+
+        fragment.setArguments(bundle);
+
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.maincontainer,fragment,"detail_fragment");
         transaction.addToBackStack(null);

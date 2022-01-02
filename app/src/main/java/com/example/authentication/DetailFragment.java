@@ -2,6 +2,7 @@ package com.example.authentication;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,8 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -33,6 +37,7 @@ public class DetailFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String mParam3;
     ArrayList<MessageModel> messageHolder;
     RecyclerView chatRecview;
 
@@ -53,6 +58,7 @@ public class DetailFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,24 +67,27 @@ public class DetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mParam1 = getArguments().getString("odaIsmi");
+            mParam2 = getArguments().getString("email");
+            mParam3 = getArguments().getString("chatRoomName");
         }
-        Log.d("mparam2 DETAIL FRAGMENT",mParam2);
+        Log.d("mParam3",mParam3);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        Log.d("mParam1",mParam1);
+        Log.d("mParam2",mParam2);
+        Log.d("mParam3",mParam3);
 
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
-        DatabaseReference reference;
+
         //reference = FirebaseDatabase.getInstance().getReference().getRoot();
-        reference = FirebaseDatabase.getInstance().getReference().getRoot();
-        /*
-        reference.addValueEventListener(new ValueEventListener() {
+      /*  reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 messageHolder.clear();
@@ -98,9 +107,12 @@ public class DetailFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 Log.d("message","firebase error");
+
             }
+
+
         });*/
 
         chatRecview = view.findViewById(R.id.chatRecview);
@@ -112,8 +124,15 @@ public class DetailFragment extends Fragment {
 
         Button sendButton = view.findViewById(R.id.chatSendButton);
         EditText chatMessageText = (EditText) view.findViewById(R.id.chatMessageText);
+
+
+
+        Log.d("realtime database test",mParam3);
+        //DatabaseReference reference1;
+        //reference1 = FirebaseDatabase.getInstance().getReference(); //.child(mParam1).child("rooms").child("message");
+
         DatabaseReference reference1;
-        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child("message");
+        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child(mParam3);
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +142,7 @@ public class DetailFragment extends Fragment {
                 chatRecview.setAdapter(adapter);
                 //reference1.push().setValue("burhan@burhan.com");
                 //reference1.push().setValue("selam");
+
                 reference1.child("email").setValue(mParam2);
                 reference1.child("message").setValue(chatMessageText.getText().toString());
                 chatMessageText.setText("");
