@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,7 +73,7 @@ public class DetailFragment extends Fragment {
             mParam2 = getArguments().getString("email");
             mParam3 = getArguments().getString("chatRoomName");
         }
-        Log.d("mParam3",mParam3);
+       // Log.d("mParam3",mParam3);
 
     }
 
@@ -79,9 +81,7 @@ public class DetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.d("mParam1",mParam1);
-        Log.d("mParam2",mParam2);
-        Log.d("mParam3",mParam3);
+
 
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
@@ -127,13 +127,12 @@ public class DetailFragment extends Fragment {
 
 
 
-        Log.d("realtime database test",mParam3);
         //DatabaseReference reference1;
         //reference1 = FirebaseDatabase.getInstance().getReference(); //.child(mParam1).child("rooms").child("message");
 
         DatabaseReference reference1;
-        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child(mParam3);
-
+        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").push().child(mParam3);
+        Log.d("sss",reference1.getKey());
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,8 +142,14 @@ public class DetailFragment extends Fragment {
                 //reference1.push().setValue("burhan@burhan.com");
                 //reference1.push().setValue("selam");
 
-                reference1.child("email").setValue(mParam2);
-                reference1.child("message").setValue(chatMessageText.getText().toString());
+                Map<String, String> messageData = new HashMap<>();
+                messageData.put("email",mParam2);
+                messageData.put("message",chatMessageText.getText().toString());
+
+
+                //reference1.child("email").setValue(mParam2);
+                //reference1.child("message").setValue(chatMessageText.getText().toString());
+                reference1.push().setValue(messageData);
                 chatMessageText.setText("");
             }
         });

@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Constants;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -141,13 +142,14 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
 
 
+
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DataModel obj3=new DataModel(roomName.getText().toString());
                 dataHolder.add(obj3);
                 recyclerView.setAdapter(adapter);
-                reference1.push().setValue(roomName.getText().toString()); //push().setValue(roomName.getText().toString());
+                reference1.push().child(roomName.getText().toString()); //push().setValue(roomName.getText().toString());
                 roomNameForArgumentPass = roomName.getText().toString();
                 Log.d("message23",roomNameForArgumentPass);
 
@@ -173,7 +175,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
         bundle.putString("odaIsmi",mParam1);
         bundle.putString("email",mParam2);
-        bundle.putString("chatRoomName","Burhannnnnnnnnnn");
+        bundle.putString("chatRoomName",roomNameForArgumentPass);
 
         fragment.setArguments(bundle);
 
