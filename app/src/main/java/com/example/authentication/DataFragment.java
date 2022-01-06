@@ -98,6 +98,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         DatabaseReference reference;
         //reference = FirebaseDatabase.getInstance().getReference().getRoot();
         reference = FirebaseDatabase.getInstance().getReference().getRoot();
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,9 +106,16 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                 //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getChildren()));
                 //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getValue()));
                         for(DataSnapshot rmchild: dataSnapshot.child(mParam1).getChildren()) {
+                          //  Log.d("rmchild",rmchild.toString());
+
                             for (DataSnapshot subrmchild : rmchild.getChildren()) {
-                                DataModel data_model = new DataModel(subrmchild.getValue().toString());
-                                dataHolder.add(data_model);
+                               // Log.d("subrmchild",subrmchild.getValue().toString());
+
+                                for (DataSnapshot subsubchild : subrmchild.getChildren()) {
+                                   // Log.d("subsubchild", subsubchild.getKey());
+                                    DataModel data_model = new DataModel(subsubchild.getKey());
+                                    dataHolder.add(data_model);
+                                }
                             }
                         }
                 //dataHolder.clear();
@@ -134,12 +142,14 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         Button sendButton = view.findViewById(R.id.createRoom);
         EditText roomName = (EditText) view.findViewById(R.id.roomName);
 
+        //Log.d("roomnamedata",roomName.getText().toString());
 
 
 
         DatabaseReference reference1;
         reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
 
+       // Log.d("reference1data",reference1.getKey().toString());
 
 
 

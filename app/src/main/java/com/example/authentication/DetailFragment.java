@@ -29,7 +29,7 @@ import java.util.Map;
  * Use the {@link DetailFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -85,19 +85,37 @@ public class DetailFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
+        DatabaseReference reference2;
 
-        //reference = FirebaseDatabase.getInstance().getReference().getRoot();
-      /*  reference1.addValueEventListener(new ValueEventListener() {
+        Log.d("mp3",mParam3);
+
+        reference2 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
+        Log.d("ref2",reference2.toString());
+
+        Log.d("ref2",reference2.child(mParam3).toString());
+
+        reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 messageHolder.clear();
-                //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getChildren()));
-                //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getValue()));
-                for(DataSnapshot rmchild: dataSnapshot.child(mParam1).getChildren()) {
+
+                for(DataSnapshot rmchild: dataSnapshot.getChildren()) {
+                    Log.d("rmdeta", rmchild.getValue().toString());
+
                     for (DataSnapshot subrmchild : rmchild.getChildren()) {
-                        Log.d("room_name", subrmchild.getValue().toString());
-                        DataModel data_model = new DataModel(subrmchild.getValue().toString());
-                        messageHolder.add(data_model);
+                        Log.d("subdeta", subrmchild.getValue().toString());
+                        for (DataSnapshot subsubrmchild : subrmchild.getChildren()) {
+                            if(subsubrmchild.child("email").getValue().toString().equals(mParam2)){
+
+
+                            }else{
+
+
+                            }
+
+                            MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString());
+                            messageHolder.add(message_model);
+                        }
                     }
                 }
                 //dataHolder.clear();
@@ -113,7 +131,8 @@ public class DetailFragment extends Fragment {
             }
 
 
-        });*/
+        });
+
 
         chatRecview = view.findViewById(R.id.chatRecview);
         chatRecview.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -129,6 +148,7 @@ public class DetailFragment extends Fragment {
 
         //DatabaseReference reference1;
         //reference1 = FirebaseDatabase.getInstance().getReference(); //.child(mParam1).child("rooms").child("message");
+        //Log.d("mp3",mParam3);
 
         DatabaseReference reference1;
         reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").push().child(mParam3);
