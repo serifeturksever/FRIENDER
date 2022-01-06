@@ -179,13 +179,17 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
     @Override
     public void onItemClick(DataModel dataModel){
+
+        Log.d("onitemclick içi",dataModel.getHeader());
+
         Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
 
         Bundle bundle = new Bundle();
 
         bundle.putString("odaIsmi",mParam1);
         bundle.putString("email",mParam2);
-        bundle.putString("chatRoomName",roomNameForArgumentPass);
+        bundle.putString("chatRoomName", dataModel.getHeader());
+
 
         fragment.setArguments(bundle);
 

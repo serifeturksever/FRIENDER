@@ -101,21 +101,21 @@ public class DetailFragment extends Fragment{
 
                 for(DataSnapshot rmchild: dataSnapshot.getChildren()) {
                     Log.d("rmdeta", rmchild.getValue().toString());
+                    Log.d("rmdeta2", rmchild.getKey());
 
                     for (DataSnapshot subrmchild : rmchild.getChildren()) {
                         Log.d("subdeta", subrmchild.getValue().toString());
-                        for (DataSnapshot subsubrmchild : subrmchild.getChildren()) {
-                            if(subsubrmchild.child("email").getValue().toString().equals(mParam2)){
-
-
+                        Log.d("rmdeta3", subrmchild.getKey());
+                        if(subrmchild.getKey().equals(mParam3)){
+                            for (DataSnapshot subsubrmchild : subrmchild.getChildren()) {
+                           /*if(subsubrmchild.child("email").getValue().toString().equals(mParam2)){
                             }else{
-
-
+                            }*/
+                                MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString());
+                                messageHolder.add(message_model);
                             }
-
-                            MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString());
-                            messageHolder.add(message_model);
                         }
+
                     }
                 }
                 //dataHolder.clear();
