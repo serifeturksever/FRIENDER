@@ -17,6 +17,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         //DatabaseReference reference;
         //reference = FirebaseDatabase.getInstance().getReference().getRoot();
+
+        //DateCreator dateCreator = new DateCreator();
 
         btnLogOut = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();
