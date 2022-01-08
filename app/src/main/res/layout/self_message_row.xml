@@ -9,19 +9,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:padding="16dp">
 
 
         <TextView
             android:id="@+id/emailText"
-            android:layout_width="130dp"
+            android:layout_width="120dp"
             android:layout_height="26dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="120dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="20dp"
-            android:layout_toStartOf="@+id/messageText"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="4dp"
             android:gravity="center_vertical"
             android:text="This is Header Text"
             android:textColor="#000"
@@ -30,13 +28,15 @@
 
         <TextView
             android:id="@+id/messageText"
-            android:layout_width="120dp"
-            android:layout_height="26dp"
+            android:layout_width="350dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/emailText"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="10dp"
             android:gravity="center_vertical"
             android:text="TextView"
-            android:textAlignment="textStart"
+            android:textAlignment="textEnd"
             android:textColor="#000"
             android:textSize="12dp" />
 

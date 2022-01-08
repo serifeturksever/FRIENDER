@@ -99,8 +99,6 @@ public class DetailFragment extends Fragment{
                 messageHolder.clear();
 
                 for(DataSnapshot rmchild: dataSnapshot.getChildren()) {
-                    Log.d("rmdeta", rmchild.getValue().toString());
-                    Log.d("rmdeta2", rmchild.getKey());
 
                     if(rmchild.getKey().equals(mParam3)){
                         for (DataSnapshot subsubrmchild : rmchild.getChildren()) {
@@ -147,7 +145,6 @@ public class DetailFragment extends Fragment{
 
         DatabaseReference reference1;
         reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child(mParam3);
-        Log.d("sss",reference1.getKey());
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
