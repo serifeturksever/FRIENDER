@@ -1,8 +1,12 @@
 package com.example.authentication;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -168,5 +172,22 @@ public class DetailFragment extends Fragment{
             }
         });
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        // app bar settings
+
+        ActionBar actionBar =  ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        actionBar.setTitle(mParam1.toUpperCase() + " - " + mParam3);
+        actionBar.show();
+        ((AppCompatActivity)getActivity()).getSupportActionBar();
+
+        super.onViewCreated(view, savedInstanceState);
     }
 }

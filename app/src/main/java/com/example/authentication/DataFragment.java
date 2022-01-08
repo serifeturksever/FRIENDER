@@ -1,8 +1,12 @@
 package com.example.authentication;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -82,6 +86,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         Log.d("message","test 1");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -176,7 +181,20 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
     @Override
     public void onViewCreated(View view,Bundle savedInstanceState){
+
+        // app bar settings
+
+        ActionBar actionBar =  ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        actionBar.setTitle(mParam1.toUpperCase());
+        actionBar.show();
+        ((AppCompatActivity)getActivity()).getSupportActionBar();
+
         super.onViewCreated(view,savedInstanceState);
+
     }
 
     @Override

@@ -1,10 +1,12 @@
 package com.example.authentication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +47,16 @@ public class MainActivity extends AppCompatActivity {
         //reference = FirebaseDatabase.getInstance().getReference().getRoot();
 
         //DateCreator dateCreator = new DateCreator();
+
+        /*ActionBar actionBar =  getSupportActionBar();
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        actionBar.setTitle("heading");
+        actionBar.show();*/
+
+
 
         btnLogOut = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();
