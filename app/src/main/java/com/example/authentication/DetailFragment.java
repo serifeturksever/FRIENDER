@@ -93,7 +93,6 @@ public class DetailFragment extends Fragment{
         Log.d("ref2",reference2.toString());
 
         Log.d("ref2",reference2.child(mParam3).toString());
-
         reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -103,21 +102,17 @@ public class DetailFragment extends Fragment{
                     Log.d("rmdeta", rmchild.getValue().toString());
                     Log.d("rmdeta2", rmchild.getKey());
 
-                    for (DataSnapshot subrmchild : rmchild.getChildren()) {
-                        Log.d("subdeta", subrmchild.getValue().toString());
-                        Log.d("rmdeta3", subrmchild.getKey());
-                        if(subrmchild.getKey().equals(mParam3)){
-                            for (DataSnapshot subsubrmchild : subrmchild.getChildren()) {
+                    if(rmchild.getKey().equals(mParam3)){
+                        for (DataSnapshot subsubrmchild : rmchild.getChildren()) {
                            /*if(subsubrmchild.child("email").getValue().toString().equals(mParam2)){
                             }else{
                             }*/
-                                MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString());
-                                messageHolder.add(message_model);
-                            }
+                            MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString());
+                            messageHolder.add(message_model);
                         }
-
                     }
                 }
+
                 //dataHolder.clear();
                 MessageAdapter messageAdapter = new MessageAdapter(messageHolder);
                 chatRecview.setAdapter(messageAdapter);
@@ -151,7 +146,7 @@ public class DetailFragment extends Fragment{
         //Log.d("mp3",mParam3);
 
         DatabaseReference reference1;
-        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").push().child(mParam3);
+        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child(mParam3);
         Log.d("sss",reference1.getKey());
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override

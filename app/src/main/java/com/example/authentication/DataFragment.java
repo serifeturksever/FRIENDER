@@ -110,12 +110,14 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
                             for (DataSnapshot subrmchild : rmchild.getChildren()) {
                                // Log.d("subrmchild",subrmchild.getValue().toString());
-
-                                for (DataSnapshot subsubchild : subrmchild.getChildren()) {
+                                     DataModel data_model = new DataModel(subrmchild.getKey());
+                                     dataHolder.add(data_model);
+                               // for (DataSnapshot subsubchild : subrmchild.getChildren()) {
                                    // Log.d("subsubchild", subsubchild.getKey());
-                                    DataModel data_model = new DataModel(subsubchild.getKey());
-                                    dataHolder.add(data_model);
-                                }
+                               //     DataModel data_model = new DataModel(subsubchild.getKey());
+                               //     dataHolder.add(data_model);
+
+                            //    }
                             }
                         }
                 //dataHolder.clear();
