@@ -17,7 +17,7 @@
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.19560068192868216" />
         <entry key="app/src/main/res/layout/fragment_data.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.23220064724919093" />
-        <entry key="app/src/main/res/layout/message_row_design.xml" value="0.26791609337389066" />
+        <entry key="app/src/main/res/layout/message_row_design.xml" value="0.335" />
         <entry key="app/src/main/res/layout/self_message_row.xml" value="0.335" />
         <entry key="app/src/main/res/layout/single_row_design.xml" value="0.375" />
       </map>

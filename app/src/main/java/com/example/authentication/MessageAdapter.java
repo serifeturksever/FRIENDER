@@ -20,7 +20,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
     ArrayList<MessageModel> messageHolder;
     private int view_type_message_sent = 1;
     private int view_type_message_received = 2;
-    private Object FirebaseAuth;
 
     public MessageAdapter(ArrayList<MessageModel> messageHolder) {
         this.messageHolder = messageHolder;
@@ -70,7 +69,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
         holder.email.setText(messageHolder.get(position).getEmail());
         holder.message.setText(messageHolder.get(position).getMessage());
-
+        holder.date.setText(messageHolder.get(position).getDate());
     }
 
     @Override
@@ -81,10 +80,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
     class myViewHolder extends RecyclerView.ViewHolder {
         TextView email;
         TextView message;
+        TextView date;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             email = itemView.findViewById(R.id.emailText);
             message = itemView.findViewById(R.id.messageText);
+            date = itemView.findViewById(R.id.messageDate);
         }
     }
 

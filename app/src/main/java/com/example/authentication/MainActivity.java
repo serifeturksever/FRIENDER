@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    TextView welcome;
+    TextView welcome,welcomeEmail;
     String userName = "";
     String splitEmail[];
     Button btnLogOut;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogOut = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();
+        welcomeEmail = (TextView) findViewById(R.id.profileName);
         welcome = (TextView) findViewById(R.id.textView);
 
         btnLogOut.setOnClickListener(view->{
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             userEmail = user.getEmail();
             splitEmail = user.getEmail().split("@",0); // welcome mesajını maile göre dinamik yazdırma kısmı
             userName = splitEmail[0];
+            welcomeEmail.setText(userEmail);
             welcome.setText("Welcome " + userName + " :)");
         }
         else{

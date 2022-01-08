@@ -105,7 +105,7 @@ public class DetailFragment extends Fragment{
                            /*if(subsubrmchild.child("email").getValue().toString().equals(mParam2)){
                             }else{
                             }*/
-                            MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString());
+                            MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString(), subsubrmchild.child("date").getValue().toString());
                             messageHolder.add(message_model);
                         }
                     }
@@ -148,7 +148,8 @@ public class DetailFragment extends Fragment{
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MessageModel message = new MessageModel(mParam2,chatMessageText.getText().toString());
+                DateCreator dateCreator = new DateCreator();
+                MessageModel message = new MessageModel(mParam2,chatMessageText.getText().toString(),dateCreator.getCurrentHourAndMinute());
                 messageHolder.add(message);
                 chatRecview.setAdapter(adapter);
                 //reference1.push().setValue("burhan@burhan.com");
@@ -157,6 +158,7 @@ public class DetailFragment extends Fragment{
                 Map<String, String> messageData = new HashMap<>();
                 messageData.put("email",mParam2);
                 messageData.put("message",chatMessageText.getText().toString());
+                messageData.put("date",dateCreator.getCurrentHourAndMinute());
 
 
                 //reference1.child("email").setValue(mParam2);
