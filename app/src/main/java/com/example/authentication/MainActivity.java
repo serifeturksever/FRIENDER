@@ -56,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle("heading");
         actionBar.show();*/
 
+        ActionBar actionBar =  getSupportActionBar(); // diğer kısımlara gerek var mı bakarsın
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+
+
 
 
         btnLogOut = findViewById(R.id.btnLogout);
