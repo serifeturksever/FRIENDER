@@ -32,8 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -147,11 +147,11 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         recyclerView.setAdapter(adapter);
 
         Button sendButton = view.findViewById(R.id.createRoom);
-        EditText roomName = (EditText) view.findViewById(R.id.roomName);
+        EditText roomName = view.findViewById(R.id.roomName);
 
         //Log.d("roomnamedata",roomName.getText().toString());
 
-
+        TextView roomCreateWarn = view.findViewById(R.id.roomCreateWarn);
 
         DatabaseReference reference1;
         reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
@@ -159,19 +159,22 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
        // Log.d("reference1data",reference1.getKey().toString());
 
 
-
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataModel obj3=new DataModel(roomName.getText().toString());
-                dataHolder.add(obj3);
-                recyclerView.setAdapter(adapter);
-                reference1.push().child(roomName.getText().toString()); //push().setValue(roomName.getText().toString());
-                roomNameForArgumentPass = roomName.getText().toString();
-                Log.d("message23",roomNameForArgumentPass);
 
 
 
+                if(roomName.getText().length() > 3){
+                    DataModel obj3=new DataModel(roomName.getText().toString());
+                    dataHolder.add(obj3);
+                    recyclerView.setAdapter(adapter);
+                    reference1.push().child(roomName.getText().toString()); //push().setValue(roomName.getText().toString());
+                    roomNameForArgumentPass = roomName.getText().toString();
+                    roomCreateWarn.setText("");
+                } else {
+                    roomCreateWarn.setText("Length of room name must be bigger than 3");
+                }
                 roomName.setText("");
             }
         });
@@ -192,16 +195,12 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         actionBar.setTitle(mParam1.toUpperCase());
         actionBar.show();
         ((AppCompatActivity)getActivity()).getSupportActionBar();
-
         super.onViewCreated(view,savedInstanceState);
 
     }
 
     @Override
     public void onItemClick(DataModel dataModel){
-
-        Log.d("onitemclick içi",dataModel.getHeader());
-
         Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
 
         Bundle bundle = new Bundle();
