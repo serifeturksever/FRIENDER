@@ -43,33 +43,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //DatabaseReference reference;
-        //reference = FirebaseDatabase.getInstance().getReference().getRoot();
-
-        //DateCreator dateCreator = new DateCreator();
-
-        /*ActionBar actionBar =  getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
-        actionBar.setTitle("heading");
-        actionBar.show();*/
-
-        ActionBar actionBar =  getSupportActionBar(); // diğer kısımlara gerek var mı bakarsın
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
-
-
-
+        ActionBar actionBar =  getSupportActionBar(); // create action button variable
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black))); // change appbar color
 
         btnLogOut = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();
-        welcomeEmail = (TextView) findViewById(R.id.profileName);
-        welcome = (TextView) findViewById(R.id.textView);
+        welcomeEmail = findViewById(R.id.profileName);
+        welcome = findViewById(R.id.textView);
 
-        btnLogOut.setOnClickListener(view->{
+        btnLogOut.setOnClickListener(view->{ // call signOut function that provided by firebase mAuth variable
             mAuth.signOut();
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            startActivity(new Intent(MainActivity.this,LoginActivity.class)); // routing with intent
         });
     }
     @Override
@@ -78,23 +62,24 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
             userEmail = user.getEmail();
-            splitEmail = user.getEmail().split("@",0); // welcome mesajını maile göre dinamik yazdırma kısmı
+            splitEmail = user.getEmail().split("@",0); // dynamic welcome message according to user email
             userName = splitEmail[0];
             welcomeEmail.setText(userEmail);
             welcome.setText("Welcome " + userName + " :)");
         }
         else{
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            startActivity(new Intent(MainActivity.this,LoginActivity.class)); // if there is no user go to the login page
         }
     }
 
 
     public void cardActivity(@NonNull View v){
 
+        // here, we detect clicked category name and routes user to clicked page with intent using cardDetails page
         if(v.getId() == R.id.sport){
             Intent myIntent = new Intent(MainActivity.this,CardDetails.class);
             myIntent.putExtra("name","sport");
-            myIntent.putExtra("email",userEmail);
+            myIntent.putExtra("email",userEmail); // we send userEmail ,because we need it on other pages
             startActivity(myIntent);
         }
         else if(v.getId() == R.id.study){

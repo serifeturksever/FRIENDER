@@ -73,12 +73,10 @@ public class DetailFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString("odaIsmi");
-            mParam2 = getArguments().getString("email");
-            mParam3 = getArguments().getString("chatRoomName");
+            mParam1 = getArguments().getString("odaIsmi"); // odaIsmi => example: sport
+            mParam2 = getArguments().getString("email"); // current user email example: serife@serife.com
+            mParam3 = getArguments().getString("chatRoomName"); // clicked room name example: oda 1
         }
-       // Log.d("mParam3",mParam3);
-
     }
 
     @Override
@@ -90,32 +88,22 @@ public class DetailFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         DatabaseReference reference2;
-
-        Log.d("mp3",mParam3);
-
         reference2 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
-        Log.d("ref2",reference2.toString());
 
-        Log.d("ref2",reference2.child(mParam3).toString());
         reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                messageHolder.clear();
-
+                messageHolder.clear(); // all messages will be retrieved every time so we have to clear messageHolder at the start of the function
                 for(DataSnapshot rmchild: dataSnapshot.getChildren()) {
-
-                    if(rmchild.getKey().equals(mParam3)){
+                    if(rmchild.getKey().equals(mParam3)){ // retrieve all messages that this room have
                         for (DataSnapshot subsubrmchild : rmchild.getChildren()) {
-                           /*if(subsubrmchild.child("email").getValue().toString().equals(mParam2)){
-                            }else{
-                            }*/
+
+                            //create message object with email,message and date
                             MessageModel message_model = new MessageModel(subsubrmchild.child("email").getValue().toString(), subsubrmchild.child("message").getValue().toString(), subsubrmchild.child("date").getValue().toString());
                             messageHolder.add(message_model);
                         }
                     }
                 }
-
-                //dataHolder.clear();
                 MessageAdapter messageAdapter = new MessageAdapter(messageHolder);
                 chatRecview.setAdapter(messageAdapter);
                 messageAdapter.notifyDataSetChanged();
@@ -131,7 +119,7 @@ public class DetailFragment extends Fragment{
         });
 
 
-        chatRecview = view.findViewById(R.id.chatRecview);
+        chatRecview = view.findViewById(R.id.chatRecview); // get recyclerView
         chatRecview.setLayoutManager(new LinearLayoutManager(getContext()));
         messageHolder = new ArrayList<>();
 
@@ -139,16 +127,10 @@ public class DetailFragment extends Fragment{
         chatRecview.setAdapter(adapter);
 
         Button sendButton = view.findViewById(R.id.chatSendButton);
-        EditText chatMessageText = (EditText) view.findViewById(R.id.chatMessageText);
-
-
-
-        //DatabaseReference reference1;
-        //reference1 = FirebaseDatabase.getInstance().getReference(); //.child(mParam1).child("rooms").child("message");
-        //Log.d("mp3",mParam3);
+        EditText chatMessageText = view.findViewById(R.id.chatMessageText);
 
         DatabaseReference reference1;
-        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child(mParam3);
+        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child(mParam3); // call clicked room
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,18 +138,13 @@ public class DetailFragment extends Fragment{
                 MessageModel message = new MessageModel(mParam2,chatMessageText.getText().toString(),dateCreator.getCurrentHourAndMinute());
                 messageHolder.add(message);
                 chatRecview.setAdapter(adapter);
-                //reference1.push().setValue("burhan@burhan.com");
-                //reference1.push().setValue("selam");
 
-                Map<String, String> messageData = new HashMap<>();
+                Map<String, String> messageData = new HashMap<>(); // put email,message and date into hashmap and add to firebase with this way.
                 messageData.put("email",mParam2);
                 messageData.put("message",chatMessageText.getText().toString());
                 messageData.put("date",dateCreator.getCurrentHourAndMinute());
 
-
-                //reference1.child("email").setValue(mParam2);
-                //reference1.child("message").setValue(chatMessageText.getText().toString());
-                reference1.push().setValue(messageData);
+                reference1.push().setValue(messageData); // add message to the firebase realtime database
                 chatMessageText.setText("");
             }
         });
@@ -178,7 +155,6 @@ public class DetailFragment extends Fragment{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         // app bar settings
-
         ActionBar actionBar =  ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(false);

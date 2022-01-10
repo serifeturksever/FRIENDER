@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText etLoginPassword;
     TextView tvRegisterHere;
     Button btnLogin;
-
     FirebaseAuth mAuth;
 
     @Override
@@ -32,14 +31,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etLoginEmail = findViewById(R.id.etLoginEmail);
+        etLoginEmail = findViewById(R.id.etLoginEmail); // create variables
         etLoginPassword = findViewById(R.id.etLoginPass);
         tvRegisterHere = findViewById(R.id.tvRegisterHere);
         btnLogin = findViewById(R.id.btnLogin);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); // firebase auth variable
 
-        btnLogin.setOnClickListener(view -> {
+        btnLogin.setOnClickListener(view -> { // call loginUser method
             loginUser();
         });
         tvRegisterHere.setOnClickListener(view ->{
@@ -49,25 +48,28 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(){
+    private void loginUser(){ // when click login button do this
+
+        // get user email and password which did be entered by user
         String email = etLoginEmail.getText().toString();
         String password = etLoginPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)){ // email validation
             etLoginEmail.setError("Email cannot be empty");
             etLoginEmail.requestFocus();
-        }else if (TextUtils.isEmpty(password)){
+        }else if (TextUtils.isEmpty(password)){ // password validation
             etLoginPassword.setError("Password cannot be empty");
             etLoginPassword.requestFocus();
         }else{
+            // if we have user email and password than control them from firebase
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()){ // email and password are true.Go to the MainActivity.class
                         Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
                         Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(myIntent);
-                    }else{
+                        startActivity(myIntent); // routing made by intent
+                    }else{ // wrong email or password
                         Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }

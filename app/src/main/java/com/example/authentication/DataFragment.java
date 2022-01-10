@@ -43,11 +43,6 @@ import java.util.Set;
  */
 public class DataFragment extends Fragment implements MyAdapter.ItemClickListener{
 
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //DatabaseReference myRef = database.getReference("message");
-
-
-
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -86,8 +81,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-        Log.d("message","test 1");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString("odaIsmi");
@@ -101,34 +94,21 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
 
         DatabaseReference reference;
-        //reference = FirebaseDatabase.getInstance().getReference().getRoot();
-        reference = FirebaseDatabase.getInstance().getReference().getRoot();
+        reference = FirebaseDatabase.getInstance().getReference().getRoot(); // call firebase database;
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataHolder.clear();
-                //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getChildren()));
-                //Log.d("firebase", String.valueOf(dataSnapshot.child(mParam1).getValue()));
+                dataHolder.clear(); // all rooms will be retrieved every time so we have to clear messageHolder at the start of the function
                         for(DataSnapshot rmchild: dataSnapshot.child(mParam1).getChildren()) {
-                          //  Log.d("rmchild",rmchild.toString());
-
                             for (DataSnapshot subrmchild : rmchild.getChildren()) {
-                               // Log.d("subrmchild",subrmchild.getValue().toString());
-                                     DataModel data_model = new DataModel(subrmchild.getKey());
+                                     DataModel data_model = new DataModel(subrmchild.getKey()); // create room object to to list in recyclerView
                                      dataHolder.add(data_model);
-                               // for (DataSnapshot subsubchild : subrmchild.getChildren()) {
-                                   // Log.d("subsubchild", subsubchild.getKey());
-                               //     DataModel data_model = new DataModel(subsubchild.getKey());
-                               //     dataHolder.add(data_model);
-
-                            //    }
                             }
                         }
-                //dataHolder.clear();
-                MyAdapter myAdapter = new MyAdapter(dataHolder,DataFragment.this::onItemClick);
-                recyclerView.setAdapter(myAdapter);
-                myAdapter.notifyDataSetChanged();
+                MyAdapter myAdapter = new MyAdapter(dataHolder,DataFragment.this::onItemClick); // creater room adapder
+                recyclerView.setAdapter(myAdapter); // use this adapter in recyclerView
+                myAdapter.notifyDataSetChanged(); // in order to my adapter notify changes and apply what progrom need
             }
 
             @Override
@@ -138,44 +118,36 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         });
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.activity_card, container, false);
-        recyclerView = view.findViewById(R.id.recview);
+        View view = inflater.inflate(R.layout.activity_card, container, false); // use activity_card.xml
+        recyclerView = view.findViewById(R.id.recview); // get recyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dataHolder = new ArrayList<>();
 
         MyAdapter adapter = new MyAdapter(dataHolder, (MyAdapter.ItemClickListener) this);
         recyclerView.setAdapter(adapter);
 
-        Button sendButton = view.findViewById(R.id.createRoom);
-        EditText roomName = view.findViewById(R.id.roomName);
+        Button sendButton = view.findViewById(R.id.createRoom); // button for creating room
+        EditText roomName = view.findViewById(R.id.roomName); // input area that holds room name
 
-        //Log.d("roomnamedata",roomName.getText().toString());
-
-        TextView roomCreateWarn = view.findViewById(R.id.roomCreateWarn);
+        TextView roomCreateWarn = view.findViewById(R.id.roomCreateWarn); // created for validation (warn) messages
 
         DatabaseReference reference1;
-        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
-
-       // Log.d("reference1data",reference1.getKey().toString());
-
+        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms"); // call rooms child from firebase realtime database
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-                if(roomName.getText().length() > 3){
-                    DataModel obj3=new DataModel(roomName.getText().toString());
+                if(roomName.getText().length() > 3){ // room name validation
+                    DataModel obj3=new DataModel(roomName.getText().toString()); // create new room Object
                     dataHolder.add(obj3);
                     recyclerView.setAdapter(adapter);
-                    reference1.push().child(roomName.getText().toString()); //push().setValue(roomName.getText().toString());
+                    reference1.push().child(roomName.getText().toString()); // add room name to firebase realtime database
                     roomNameForArgumentPass = roomName.getText().toString();
-                    roomCreateWarn.setText("");
+                    roomCreateWarn.setText(""); // clear input area
                 } else {
                     roomCreateWarn.setText("Length of room name must be bigger than 3");
                 }
-                roomName.setText("");
+                roomName.setText(""); // clear the input area
             }
         });
 
@@ -186,7 +158,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     public void onViewCreated(View view,Bundle savedInstanceState){
 
         // app bar settings
-
         ActionBar actionBar =  ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -203,15 +174,13 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     public void onItemClick(DataModel dataModel){
         Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
 
+        // for passing other fragment (detail fragment)
         Bundle bundle = new Bundle();
 
-        bundle.putString("odaIsmi",mParam1);
+        bundle.putString("odaIsmi",mParam1); // parameters that sent to other fragment (detail fragment)
         bundle.putString("email",mParam2);
         bundle.putString("chatRoomName", dataModel.getHeader());
-
-
         fragment.setArguments(bundle);
-
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.maincontainer,fragment,"detail_fragment");
         transaction.addToBackStack(null);

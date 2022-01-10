@@ -18,19 +18,18 @@ import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHolder> {
     ArrayList<MessageModel> messageHolder;
-    private int view_type_message_sent = 1;
-    private int view_type_message_received = 2;
+    private int view_type_message_sent = 1; // sender view type
+    private int view_type_message_received = 2; // receiver view type
 
-    public MessageAdapter(ArrayList<MessageModel> messageHolder) {
+    public MessageAdapter(ArrayList<MessageModel> messageHolder) { // constructor => get just message holder
         this.messageHolder = messageHolder;
 
     }
 
     @Override
     public int getItemViewType(int position) {
-
-        //return super.getItemViewType(position);
-        /*Log.d("position value",messageHolder.get(position).getMessage());*/
+        // here we detect who sent the message
+        // we are going to specify messages position in chat page with this information
         String userEmail = messageHolder.get(position).getEmail();
         String currentUserFirebaseEmail = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
@@ -40,13 +39,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
         } else {
             return view_type_message_received;
         }
-
-
-      /* if("burhan@burhan.com" == com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getEmail()){
-            return view_type_message_sent;
-       } else {
-           return view_type_message_received;
-       }*/
     }
 
     @NonNull
@@ -55,7 +47,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
 
         Log.d("view message type",String.valueOf(viewType));
 
-        if(viewType == view_type_message_received){
+        if(viewType == view_type_message_received){ // in getItemViewType we make ready this information and use here.If user message sender is you,ypur messages shown right on the chat page else shown left on the chat page
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_row_design,parent,false);
             return new myViewHolder(view);
         } else {
@@ -66,7 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull myViewHolder holder, int position) { // sets message informations
         holder.email.setText(messageHolder.get(position).getEmail());
         holder.message.setText(messageHolder.get(position).getMessage());
         holder.date.setText(messageHolder.get(position).getDate());
@@ -81,7 +73,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
         TextView email;
         TextView message;
         TextView date;
-        public myViewHolder(@NonNull View itemView) {
+        public myViewHolder(@NonNull View itemView) { // get message informations
             super(itemView);
             email = itemView.findViewById(R.id.emailText);
             message = itemView.findViewById(R.id.messageText);

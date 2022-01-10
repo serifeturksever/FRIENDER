@@ -12,28 +12,25 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     ArrayList<DataModel> dataHolder;
-    private ItemClickListener clickListener;
+    private ItemClickListener clickListener; // we will click the room name and go to the chat page so we need this variable
 
-    public MyAdapter(ArrayList<DataModel> dataHolder,ItemClickListener clickListener) {
+    public MyAdapter(ArrayList<DataModel> dataHolder,ItemClickListener clickListener) { // get dataHolder and clickListener
         this.dataHolder = dataHolder;
         this.clickListener = clickListener;
-
     }
 
     @NonNull
     @Override
-    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { // when create room , single_row_design.xml will be called
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_row_design,parent,false);
         return new myViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        //holder.img.setImageResource(dataHolder.get(position).getImage());
+    public void onBindViewHolder(@NonNull myViewHolder holder, int position) { // we just need room name as header here, so set header only
         holder.header.setText(dataHolder.get(position).getHeader());
-        //holder.description.setText(dataHolder.get(position).getDescription());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() { // itemView ?
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickListener.onItemClick(dataHolder.get(holder.getAdapterPosition()));
@@ -47,17 +44,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
         return dataHolder.size();
     }
 
-    class myViewHolder extends RecyclerView.ViewHolder {
-        //ImageView img;
-        TextView header; //,description;
+    class myViewHolder extends RecyclerView.ViewHolder { // get room informations
+        TextView header;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             header = itemView.findViewById(R.id.emailText);
         }
     }
 
-    public interface ItemClickListener {
-
+    public interface ItemClickListener { // clickLlistener interface
         public void onItemClick(DataModel dataModel);
     }
 
