@@ -196,6 +196,14 @@
                             android:layout_height="120dp"
                             android:background="@drawable/study"></ImageView>
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Art"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+
 
                     </LinearLayout>
 
@@ -267,14 +275,6 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Study"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Art"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
