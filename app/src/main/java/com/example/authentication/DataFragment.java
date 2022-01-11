@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -104,9 +105,10 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataHolder.clear(); // all rooms will be retrieved every time so we have to clear messageHolder at the start of the function
-                for(DataSnapshot rmchild: dataSnapshot.child(mParam1).getChildren()) {
+                dataHolder.clear(); // all chats will be retrieved every time so we have to clear messageHolder at the start of the function
+                for(DataSnapshot rmchild: dataSnapshot.child(mParam1).child("rooms").getChildren()) {
                     for (DataSnapshot subrmchild : rmchild.getChildren()) {
+                        Log.d("rmChild",subrmchild.toString());
                         DataModel data_model = new DataModel(subrmchild.getKey()); // create room object to to list in recyclerView
                         dataHolder.add(data_model);
                     }
@@ -135,7 +137,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
         DatabaseReference reference1;
         reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
-
         FloatingActionButton fab = view.findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +157,16 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                             DataModel obj3=new DataModel(roomName.getText().toString()); // create new room Object
                             dataHolder.add(obj3);
                             recyclerView.setAdapter(adapter);
+
+                            DateCreator dateCreator = new DateCreator();
+
+                            Map<String, String> roomData = new HashMap<>(); // put email,message and date into hashmap and add to firebase with this way.
+                            roomData.put("categoryName",mParam1);
+                            roomData.put("roomName",roomName.getText().toString());
+                            roomData.put("date",dateCreator.getCurrentFullDate());
+
+                            reference1.push().child(roomName.getText().toString()).setValue(roomData); // add message to the firebase realtime database
+
                             reference1.push().child(roomName.getText().toString()); // add room name to firebase realtime database
                             roomNameForArgumentPass = roomName.getText().toString();
                             roomCreateWarn.setText(""); // clear input area
@@ -222,3 +233,4 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
 
 }
+

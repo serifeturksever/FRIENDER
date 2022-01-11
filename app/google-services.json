@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "956537196075",
-    "project_id": "authentication-84014",
-    "storage_bucket": "authentication-84014.appspot.com"
+    "project_number": "3748705027",
+    "project_id": "friender-40a4f",
+    "storage_bucket": "friender-40a4f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:956537196075:android:8b1cec1ef6a0db48b2a46e",
+        "mobilesdk_app_id": "1:3748705027:android:0826f93e42a1fede612f36",
         "android_client_info": {
           "package_name": "com.example.authentication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "956537196075-ei0hqd4sdl3i9ssb4q6h8sgp5nf8mplg.apps.googleusercontent.com",
+          "client_id": "3748705027-dr1qjrscs1mgt1pninu7lbmih0mfmktl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBQDqfqWIM0H5u_A3c1JGuY2-4X1uTAG6w"
+          "current_key": "AIzaSyAwThWt1hYmD-lODQp0ycjk6JJLfsyuWzk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "956537196075-ei0hqd4sdl3i9ssb4q6h8sgp5nf8mplg.apps.googleusercontent.com",
+              "client_id": "3748705027-dr1qjrscs1mgt1pninu7lbmih0mfmktl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

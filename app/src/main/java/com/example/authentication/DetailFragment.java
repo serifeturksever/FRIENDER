@@ -92,7 +92,7 @@ public class DetailFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         DatabaseReference reference2;
-        reference2 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms");
+        reference2 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("chats");
 
         reference2.addValueEventListener(new ValueEventListener() {
             @Override
