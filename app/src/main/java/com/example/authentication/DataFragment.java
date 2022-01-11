@@ -109,7 +109,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                 for(DataSnapshot rmchild: dataSnapshot.child(mParam1).child("rooms").getChildren()) {
                     for (DataSnapshot subrmchild : rmchild.getChildren()) {
                         Log.d("rmChild",subrmchild.toString());
-                        DataModel data_model = new DataModel(subrmchild.getKey()); // create room object to to list in recyclerView
+                        DataModel data_model = new DataModel(subrmchild.getKey(),subrmchild.child("date").getValue().toString()); //create room object to to list in recyclerView
                         dataHolder.add(data_model);
                     }
                 }
@@ -145,6 +145,10 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                 dialogBuilder = new AlertDialog.Builder(DataFragment.this.getContext());
                 final View createRoom = getLayoutInflater().inflate(R.layout.popup,null);
 
+                dialogBuilder.setView(createRoom);
+                dialog = dialogBuilder.create();
+                dialog.show();
+
                 Button sendButton = createRoom.findViewById(R.id.createRoom); // button for creating room
                 EditText roomName = createRoom.findViewById(R.id.roomName); // input area that holds room name
 
@@ -154,11 +158,12 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                     @Override
                     public void onClick(View v) {
                         if(roomName.getText().length() > 3){ // room name validation
-                            DataModel obj3=new DataModel(roomName.getText().toString()); // create new room Object
+                            DateCreator dateCreator = new DateCreator();
+
+                            DataModel obj3=new DataModel(roomName.getText().toString(),dateCreator.getCurrentFullDate()); // create new room Object
                             dataHolder.add(obj3);
                             recyclerView.setAdapter(adapter);
 
-                            DateCreator dateCreator = new DateCreator();
 
                             Map<String, String> roomData = new HashMap<>(); // put email,message and date into hashmap and add to firebase with this way.
                             roomData.put("categoryName",mParam1);
@@ -174,11 +179,10 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                             roomCreateWarn.setText("Length of room name must be bigger than 3");
                         }
                         roomName.setText(""); // clear the input area
+                        dialog.dismiss();
                     }
                 });
-                dialogBuilder.setView(createRoom);
-                dialog = dialogBuilder.create();
-                dialog.show();
+
             }
         });
 

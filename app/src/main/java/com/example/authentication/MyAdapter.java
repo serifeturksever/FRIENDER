@@ -29,6 +29,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) { // we just need room name as header here, so set header only
         holder.header.setText(dataHolder.get(position).getHeader());
+        holder.date.setText(dataHolder.get(position).getDate());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +46,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     }
 
     class myViewHolder extends RecyclerView.ViewHolder { // get room informations
-        TextView header;
+        TextView header,date;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             header = itemView.findViewById(R.id.emailText);
+            date = itemView.findViewById(R.id.roomDate);
         }
     }
 
