@@ -7,17 +7,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -117,8 +121,6 @@ public class DetailFragment extends Fragment{
 
 
         });
-
-
         chatRecview = view.findViewById(R.id.chatRecview); // get recyclerView
         chatRecview.setLayoutManager(new LinearLayoutManager(getContext()));
         messageHolder = new ArrayList<>();
@@ -130,22 +132,30 @@ public class DetailFragment extends Fragment{
         EditText chatMessageText = view.findViewById(R.id.chatMessageText);
 
         DatabaseReference reference1;
-        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("rooms").child(mParam3); // call clicked room
+        reference1 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("chats").child(mParam3); // call clicked room
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DateCreator dateCreator = new DateCreator();
-                MessageModel message = new MessageModel(mParam2,chatMessageText.getText().toString(),dateCreator.getCurrentHourAndMinute());
-                messageHolder.add(message);
-                chatRecview.setAdapter(adapter);
 
-                Map<String, String> messageData = new HashMap<>(); // put email,message and date into hashmap and add to firebase with this way.
-                messageData.put("email",mParam2);
-                messageData.put("message",chatMessageText.getText().toString());
-                messageData.put("date",dateCreator.getCurrentHourAndMinute());
+                if(chatMessageText.getText().toString().length() > 0){
+                    MessageModel message = new MessageModel(mParam2,chatMessageText.getText().toString(),dateCreator.getCurrentHourAndMinute());
+                    messageHolder.add(message);
+                    chatRecview.setAdapter(adapter);
 
-                reference1.push().setValue(messageData); // add message to the firebase realtime database
-                chatMessageText.setText("");
+                    Map<String, String> messageData = new HashMap<>(); // put email,message and date into hashmap and add to firebase with this way.
+                    messageData.put("email",mParam2);
+                    messageData.put("message",chatMessageText.getText().toString());
+                    messageData.put("date",dateCreator.getCurrentHourAndMinute());
+
+                    reference1.push().setValue(messageData); // add message to the firebase realtime database
+                    chatMessageText.setText("");
+                } else {
+                    Toast toast = Toast.makeText(getActivity(),"Length of message must be at least 1 character!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0); // Finally, show the toast toast.show();
+                    toast.show();
+                }
+
             }
         });
         return view;
@@ -153,13 +163,12 @@ public class DetailFragment extends Fragment{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         // app bar settings
         ActionBar actionBar =  ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black)));
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.logout)));
         actionBar.setTitle(mParam1.toUpperCase() + " - " + mParam3);
         actionBar.show();
         ((AppCompatActivity)getActivity()).getSupportActionBar();
