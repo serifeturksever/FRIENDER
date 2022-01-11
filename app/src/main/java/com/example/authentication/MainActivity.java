@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActionBar actionBar =  getSupportActionBar(); // create action button variable
-        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.black))); // change appbar color
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.delete))); // change appbar color
 
         btnLogOut = findViewById(R.id.btnLogout);
         mAuth = FirebaseAuth.getInstance();

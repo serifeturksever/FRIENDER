@@ -12,6 +12,7 @@
     <color name="sended_message_date">#E4EDFA</color>
     <color name="received_message">#DFEAEA</color>
     <color name="logout">#9EBBDB</color>
+    <color name="delete">#30475E</color>
 </resources>
 <!--<color name="sended_message">#407A4C</color>-->
 <!--<color name="received_message">#E4EDFA</color>-->

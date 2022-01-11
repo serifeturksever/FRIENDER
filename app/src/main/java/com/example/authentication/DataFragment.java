@@ -101,12 +101,16 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         DatabaseReference reference;
         reference = FirebaseDatabase.getInstance().getReference().getRoot(); // call firebase database;
 
+        // mParam2 => userEmail
+        String currentUserFirebaseEmail = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataHolder.clear(); // all chats will be retrieved every time so we have to clear messageHolder at the start of the function
                 for(DataSnapshot rmchild: dataSnapshot.child(mParam1).child("rooms").getChildren()) {
-                        DataModel data_model = new DataModel(rmchild.child("roomName").getValue().toString(),rmchild.child("date").getValue().toString(),rmchild.child("categoryName").getValue().toString()); //create room object to to list in recyclerView
+                        DataModel data_model = new DataModel(rmchild.child("roomName").getValue().toString(),rmchild.child("date").getValue().toString(),rmchild.child("categoryName").getValue().toString(),rmchild.child("creator").getValue().toString()); //create room object to to list in recyclerView
                         dataHolder.add(data_model);
                 }
                 MyAdapter myAdapter = new MyAdapter(dataHolder,DataFragment.this::onItemClick,mParam1); // creater room adapder
@@ -154,7 +158,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                         if(roomName.getText().length() > 3){ // room name validation
                             DateCreator dateCreator = new DateCreator();
 
-                            DataModel obj3=new DataModel(roomName.getText().toString(),dateCreator.getCurrentFullDate(),mParam1); // create new room Object
+                            DataModel obj3=new DataModel(roomName.getText().toString(),dateCreator.getCurrentFullDate(),mParam1,mParam2); // create new room Object
                             dataHolder.add(obj3);
                             recyclerView.setAdapter(adapter);
 
@@ -163,6 +167,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                             roomData.put("categoryName",mParam1);
                             roomData.put("roomName",roomName.getText().toString());
                             roomData.put("date",dateCreator.getCurrentFullDate());
+                            roomData.put("creator",mParam2);
 
                             reference1.push().setValue(roomData); // add message to the firebase realtime database
                             //reference1.push().child(roomName.getText().toString()); // add room name to firebase realtime database
@@ -199,7 +204,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
     @Override
     public void onItemClick(DataModel dataModel){
-
         Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
         // for passing other fragment (detail fragment)
         Bundle bundle = new Bundle();

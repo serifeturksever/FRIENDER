@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/gradient_background"
     tools:context=".MainActivity"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -22,9 +22,9 @@
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/avatar"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/avatar_icon"
                 app:cardCornerRadius="65dp" />
 
             <LinearLayout
@@ -81,9 +81,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:background="@drawable/sport"></ImageView>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/sport_icon"></ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -114,9 +114,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:background="@drawable/game"></ImageView>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/game_icon"></ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -158,9 +158,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:background="@drawable/chat"></ImageView>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/chat_icon"></ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -192,15 +192,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:background="@drawable/study"></ImageView>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/study_icon"></ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Art"
+                            android:text="Study"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -233,9 +233,9 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:background="@drawable/pizza"></ImageView>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/food_icon"></ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -266,15 +266,15 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="120dp"
-                            android:layout_height="120dp"
-                            android:background="@drawable/art"></ImageView>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/art_icon"></ImageView>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Study"
+                            android:text="Art"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
 
@@ -295,7 +295,7 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
-            android:backgroundTint="@color/logout"
+            android:backgroundTint="@color/delete"
             android:text="Logout" />
     </RelativeLayout>
 

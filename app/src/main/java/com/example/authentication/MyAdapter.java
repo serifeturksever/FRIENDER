@@ -43,8 +43,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) { // we just need room name as header here, so set header only
         holder.header.setText(dataHolder.get(position).getHeader());
         holder.date.setText(dataHolder.get(position).getDate());
+        holder.creator.setText(dataHolder.get(position).getCreator());
+
+        String currentUserFirebaseEmail = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         Button btnDelete = this.tempView.findViewById(R.id.btnDelete);
+        if(!holder.creator.getText().toString().equals(currentUserFirebaseEmail)){
+            btnDelete.setVisibility(View.INVISIBLE);
+        }
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,11 +76,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     }
 
     class myViewHolder extends RecyclerView.ViewHolder { // get room informations
-        TextView header,date;
+        TextView header,date,creator;
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             header = itemView.findViewById(R.id.emailText);
             date = itemView.findViewById(R.id.roomDate);
+            creator = itemView.findViewById(R.id.roomCreator);
         }
     }
 

@@ -4,11 +4,13 @@ public class DataModel { // room object model
     String header; // room name
     String date;
     String category;
+    String creator;
 
-    public DataModel(String header,String date,String category) {
+    public DataModel(String header,String date,String category,String creator) {
         this.header = header;
         this.date = date;
         this.category = category;
+        this.creator = creator;
     }
     public String getHeader() {
         return header;
@@ -23,4 +25,5 @@ public class DataModel { // room object model
         this.date = date;
     } // set room name
     public String getCategory() { return category; } // set room name
+    public String getCreator() { return creator; } // set room name
 }

@@ -45,8 +45,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.myViewHo
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        Log.d("view message type",String.valueOf(viewType));
-
         if(viewType == view_type_message_received){ // in getItemViewType we make ready this information and use here.If user message sender is you,ypur messages shown right on the chat page else shown left on the chat page
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_row_design,parent,false);
             return new myViewHolder(view);
