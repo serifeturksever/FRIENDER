@@ -31,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -97,8 +98,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         DatabaseReference reference;
         reference = FirebaseDatabase.getInstance().getReference().getRoot(); // call firebase database;
 
@@ -107,13 +106,10 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 dataHolder.clear(); // all chats will be retrieved every time so we have to clear messageHolder at the start of the function
                 for(DataSnapshot rmchild: dataSnapshot.child(mParam1).child("rooms").getChildren()) {
-                    for (DataSnapshot subrmchild : rmchild.getChildren()) {
-                        Log.d("rmChild",subrmchild.toString());
-                        DataModel data_model = new DataModel(subrmchild.getKey(),subrmchild.child("date").getValue().toString()); //create room object to to list in recyclerView
+                        DataModel data_model = new DataModel(rmchild.child("roomName").getValue().toString(),rmchild.child("date").getValue().toString(),rmchild.child("categoryName").getValue().toString()); //create room object to to list in recyclerView
                         dataHolder.add(data_model);
-                    }
                 }
-                MyAdapter myAdapter = new MyAdapter(dataHolder,DataFragment.this::onItemClick); // creater room adapder
+                MyAdapter myAdapter = new MyAdapter(dataHolder,DataFragment.this::onItemClick,mParam1); // creater room adapder
                 recyclerView.setAdapter(myAdapter); // use this adapter in recyclerView
                 myAdapter.notifyDataSetChanged(); // in order to my adapter notify changes and apply what progrom need
             }
@@ -130,9 +126,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         dataHolder = new ArrayList<>();
 
-
-
-        MyAdapter adapter = new MyAdapter(dataHolder, (MyAdapter.ItemClickListener) this);
+        MyAdapter adapter = new MyAdapter(dataHolder, (MyAdapter.ItemClickListener) this,mParam1);
         recyclerView.setAdapter(adapter);
 
         DatabaseReference reference1;
@@ -160,7 +154,7 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                         if(roomName.getText().length() > 3){ // room name validation
                             DateCreator dateCreator = new DateCreator();
 
-                            DataModel obj3=new DataModel(roomName.getText().toString(),dateCreator.getCurrentFullDate()); // create new room Object
+                            DataModel obj3=new DataModel(roomName.getText().toString(),dateCreator.getCurrentFullDate(),mParam1); // create new room Object
                             dataHolder.add(obj3);
                             recyclerView.setAdapter(adapter);
 
@@ -170,9 +164,8 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                             roomData.put("roomName",roomName.getText().toString());
                             roomData.put("date",dateCreator.getCurrentFullDate());
 
-                            reference1.push().child(roomName.getText().toString()).setValue(roomData); // add message to the firebase realtime database
-
-                            reference1.push().child(roomName.getText().toString()); // add room name to firebase realtime database
+                            reference1.push().setValue(roomData); // add message to the firebase realtime database
+                            //reference1.push().child(roomName.getText().toString()); // add room name to firebase realtime database
                             roomNameForArgumentPass = roomName.getText().toString();
                             roomCreateWarn.setText(""); // clear input area
                         } else {
@@ -185,9 +178,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
 
             }
         });
-
-
-
         return view;
     }
 
@@ -211,7 +201,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
     public void onItemClick(DataModel dataModel){
 
         Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
-
         // for passing other fragment (detail fragment)
         Bundle bundle = new Bundle();
 
@@ -225,16 +214,5 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         transaction.addToBackStack(null);
         transaction.commit();
     }
-
-    /*public void createNewRoomDialog(){
-        dialogBuilder = new AlertDialog.Builder(DataFragment.this.getContext());
-        final View createRoom = getLayoutInflater().inflate(R.layout.popup,null);
-        tv2 = createRoom.findViewById(R.id.tet);
-        dialogBuilder.setView(createRoom);
-        dialog = dialogBuilder.create();
-        dialog.show();
-    }*/
-
-
 }
 
