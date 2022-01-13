@@ -173,11 +173,11 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                             //reference1.push().child(roomName.getText().toString()); // add room name to firebase realtime database
                             roomNameForArgumentPass = roomName.getText().toString();
                             roomCreateWarn.setText(""); // clear input area
+                            roomName.setText(""); // clear the input area
+                            dialog.dismiss();
                         } else {
                             roomCreateWarn.setText("Length of room name must be bigger than 3");
                         }
-                        roomName.setText(""); // clear the input area
-                        dialog.dismiss();
                     }
                 });
 
