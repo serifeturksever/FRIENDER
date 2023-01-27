@@ -94,6 +94,7 @@ public class DetailFragment extends Fragment{
         DatabaseReference reference2;
         reference2 = FirebaseDatabase.getInstance().getReference().child(mParam1).child("chats");
 
+        // we seperate room and chat child in database.So we retrieve chat data from child "chats" part.
         reference2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -169,7 +170,7 @@ public class DetailFragment extends Fragment{
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.logout)));
-        actionBar.setTitle(mParam1.toUpperCase() + " - " + mParam3);
+        actionBar.setTitle(mParam1.toUpperCase() + " - " + mParam3); // set app bar title
         actionBar.show();
         ((AppCompatActivity)getActivity()).getSupportActionBar();
 

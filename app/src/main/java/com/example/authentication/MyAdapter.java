@@ -40,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) { // we just need room name as header here, so set header only
+    public void onBindViewHolder(@NonNull myViewHolder holder, int position) { // set header,date and creator for room data
         holder.header.setText(dataHolder.get(position).getHeader());
         holder.date.setText(dataHolder.get(position).getDate());
         holder.creator.setText(dataHolder.get(position).getCreator());
@@ -48,16 +48,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.myViewHolder> {
         String currentUserFirebaseEmail = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         Button btnDelete = this.tempView.findViewById(R.id.btnDelete);
-        if(!holder.creator.getText().toString().equals(currentUserFirebaseEmail)){
+        if(!holder.creator.getText().toString().equals(currentUserFirebaseEmail)){ // make invisible delete button if user doesn't create this room
             btnDelete.setVisibility(View.INVISIBLE);
         }
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btnDelete.setOnClickListener(new View.OnClickListener() { // delete room
             @Override
             public void onClick(View v) {
                 deleteRoom(dataHolder.get(position).getCategory(),dataHolder.get(position).getHeader());
                 deleteChat(dataHolder.get(position).getCategory(),dataHolder.get(position).getHeader());
-                Log.d("clicked",dataHolder.get(position).getHeader());
-                Log.d("category",dataHolder.get(position).getCategory());
             }
         });
         holder.itemView.setOnClickListener(new View.OnClickListener() {

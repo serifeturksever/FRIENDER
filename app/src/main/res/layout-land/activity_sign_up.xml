@@ -24,7 +24,7 @@
             android:text="Register"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="@color/teal_700"
+            android:textColor="@color/delete"
             android:gravity="center_horizontal"
             android:layout_marginVertical="16dp"/>
 
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Login here"
-                android:textColor="@color/teal_700"
+                android:textColor="@color/delete"
                 android:textStyle="bold"
                 android:textSize="20sp"/>
 

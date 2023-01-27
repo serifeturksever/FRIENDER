@@ -24,6 +24,6 @@ public class DataModel { // room object model
     public void setDate(String date) {
         this.date = date;
     } // set room name
-    public String getCategory() { return category; } // set room name
-    public String getCreator() { return creator; } // set room name
+    public String getCategory() { return category; } // get category 
+    public String getCreator() { return creator; } // get creator
 }

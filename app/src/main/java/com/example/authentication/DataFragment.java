@@ -101,14 +101,11 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         DatabaseReference reference;
         reference = FirebaseDatabase.getInstance().getReference().getRoot(); // call firebase database;
 
-        // mParam2 => userEmail
-        String currentUserFirebaseEmail = com.google.firebase.auth.FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-
+        // we seperate room and chat child in database.So we retrieve room data from child "rooms" part.
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dataHolder.clear(); // all chats will be retrieved every time so we have to clear messageHolder at the start of the function
+                dataHolder.clear(); // all rooms will be retrieved every time so we have to clear messageHolder at the start of the function
                 for(DataSnapshot rmchild: dataSnapshot.child(mParam1).child("rooms").getChildren()) {
                         DataModel data_model = new DataModel(rmchild.child("roomName").getValue().toString(),rmchild.child("date").getValue().toString(),rmchild.child("categoryName").getValue().toString(),rmchild.child("creator").getValue().toString()); //create room object to to list in recyclerView
                         dataHolder.add(data_model);
@@ -141,11 +138,11 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
             @Override
             public void onClick(View v) {
                 dialogBuilder = new AlertDialog.Builder(DataFragment.this.getContext());
-                final View createRoom = getLayoutInflater().inflate(R.layout.popup,null);
+                final View createRoom = getLayoutInflater().inflate(R.layout.popup,null); // input and button that be used for creating room are holded in popup.xml file
 
-                dialogBuilder.setView(createRoom);
+                dialogBuilder.setView(createRoom); // prepare popup page to show on the screen
                 dialog = dialogBuilder.create();
-                dialog.show();
+                dialog.show(); // show popup as a dialog
 
                 Button sendButton = createRoom.findViewById(R.id.createRoom); // button for creating room
                 EditText roomName = createRoom.findViewById(R.id.roomName); // input area that holds room name
@@ -163,18 +160,18 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
                             recyclerView.setAdapter(adapter);
 
 
-                            Map<String, String> roomData = new HashMap<>(); // put email,message and date into hashmap and add to firebase with this way.
+                            Map<String, String> roomData = new HashMap<>(); // put email,message,date and room creator into hashmap and add to firebase with this way.
                             roomData.put("categoryName",mParam1);
                             roomData.put("roomName",roomName.getText().toString());
                             roomData.put("date",dateCreator.getCurrentFullDate());
-                            roomData.put("creator",mParam2);
+                            roomData.put("creator",mParam2); // user be able to delete own room thanks to this variable
 
                             reference1.push().setValue(roomData); // add message to the firebase realtime database
                             //reference1.push().child(roomName.getText().toString()); // add room name to firebase realtime database
                             roomNameForArgumentPass = roomName.getText().toString();
                             roomCreateWarn.setText(""); // clear input area
                             roomName.setText(""); // clear the input area
-                            dialog.dismiss();
+                            dialog.dismiss(); // close the dialog
                         } else {
                             roomCreateWarn.setText("Length of room name must be bigger than 3");
                         }
@@ -207,8 +204,6 @@ public class DataFragment extends Fragment implements MyAdapter.ItemClickListene
         Fragment fragment = DetailFragment.newInstance(dataModel.getHeader(),mParam2); // DetailFragment.newInstance(dataModel.getHeader());
         // for passing other fragment (detail fragment)
         Bundle bundle = new Bundle();
-
-
         bundle.putString("odaIsmi",mParam1); // parameters that sent to other fragment (detail fragment)
         bundle.putString("email",mParam2);
         bundle.putString("chatRoomName", dataModel.getHeader());

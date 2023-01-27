@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             splitEmail = user.getEmail().split("@",0); // dynamic welcome message according to user email
             userName = splitEmail[0];
             welcomeEmail.setText(userEmail);
-            welcome.setText("Welcome " + userName + " :)");
+            welcome.setText("Welcome " + userName);
         }
         else{
             startActivity(new Intent(MainActivity.this,LoginActivity.class)); // if there is no user go to the login page

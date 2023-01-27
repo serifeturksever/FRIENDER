@@ -15,8 +15,8 @@ public class CardDetails extends AppCompatActivity {
 
         // Create detail fragment
         Bundle bundle = new Bundle();
-        bundle.putString("odaIsmi",getIntent().getExtras().getString("name")); // pass some arguments to use in datafragment
-        bundle.putString("email",getIntent().getExtras().getString("email"));
+        bundle.putString("odaIsmi",getIntent().getExtras().getString("name")); // pass room name argument to use in datafragment
+        bundle.putString("email",getIntent().getExtras().getString("email")); // pass email argument to use in datafragment
         DataFragment dataFragment = new DataFragment();
         dataFragment.setArguments(bundle);
 
